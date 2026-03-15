@@ -1,4 +1,7 @@
+import argparse
 from pathlib import Path
+from importlib.metadata import version, PackageNotFoundError
+
 from colorama import init
 
 from .config import load_config
@@ -11,7 +14,15 @@ from .presenter import display
 init(autoreset=True)
 
 
-def main():
+def get_version():
+    """Return installed package version."""
+    try:
+        return version("todo-hub")
+    except PackageNotFoundError:
+        return "unknown"
+
+
+def run():
 
     config = load_config()
 
@@ -52,6 +63,24 @@ def main():
     groups = group_todos(todos)
 
     display(groups)
+
+
+def main():
+
+    parser = argparse.ArgumentParser(
+        prog="todo-hub",
+        description="Aggregate TODO deadlines across projects",
+    )
+
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=f"%(prog)s {get_version()}",
+    )
+
+    parser.parse_args()
+
+    run()
 
 
 if __name__ == "__main__":
