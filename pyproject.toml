@@ -3,6 +3,7 @@ name = "todo-hub"
 version = "0.1.0"
 description = "Aggregate TODO deadlines across projects"
 authors = ["Catur Wahyu"]
+license = "MIT"
 
 packages = [
     { include = "todohub", from = "src" }
