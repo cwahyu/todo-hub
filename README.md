@@ -77,23 +77,21 @@ Example output:
 
 ```
 Overdue:
-- [ ] fix parser @2026-03-10 (-4d) #mudita
+  - [ ] fix parser @2026-03-10 (-4d) #mudita
 
 This week:
   Today
   - [ ] finish CLI @2026-03-14 (0d) #todo-hub
-
   Tomorrow
   - [ ] improve parser @2026-03-15 (1d) #mudita
-
   Mar 16
   - [ ] refactor scanner @2026-03-16 (2d) #todo-hub
 
 Later:
-- [ ] redesign module @2026-03-25 (11d) #todo-hub
+  - [ ] redesign module @2026-03-25 (11d) #todo-hub
 
 Unscheduled:
-- [ ] research API #blog
+  - [ ] research API #blog
 ```
 
 ## TODO Format
