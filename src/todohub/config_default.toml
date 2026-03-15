@@ -1,0 +1,20 @@
+# TodoHub Configuration
+# ---------------------
+# Add projects you want TodoHub to scan.
+# Each project requires:
+# - name : display name
+# - path : directory containing your tasks
+
+[[project]]
+name = "example-project"
+path = "/path/to/your/project"
+
+# Example:
+#
+# [[project]]
+# name = "my-book"
+# path = "/Users/yourname/Documents/book"
+#
+# [[project]]
+# name = "work"
+# path = "/Users/yourname/work/tasks"

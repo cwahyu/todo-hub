@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "todo-hub"
+version = "0.1.0"
+description = "Aggregate TODO deadlines across projects"
+authors = ["Catur Wahyu"]
+
+packages = [
+    { include = "todohub", from = "src" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+colorama = "^0.4"
+platformdirs = "^4.9.4"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=todohub --cov-report=term-missing --cov-fail-under=80 -q"
+
+[tool.poetry.scripts]
+todo-hub = "todohub.main:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0",
+    "pre-commit (>=4.5.1,<5.0.0)",
+    "pytest-cov (>=7.0.0,<8.0.0)"
+]

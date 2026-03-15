@@ -1,0 +1,14 @@
+*.DS_Store
+*.egg-info/
+*.log
+*.pyc
+.coverage
+.env
+.idea/
+.venv/
+__pycache__/
+build/
+config.toml
+dist/
+local/
+venv/
