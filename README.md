@@ -218,7 +218,7 @@ and immediately see what needs attention.
 
 `todo-hub` is designed around a few simple principles.
 
-### 1. Deadlines over task lists
+### Deadlines over task lists
 
 Most TODO tools focus on managing tasks inside a single project.
 
@@ -230,7 +230,7 @@ The goal is to answer one question quickly:
 
 Instead of browsing multiple repositories, `todo-hub` aggregates tasks into a single agenda-style view.
 
-### 2. Plain text first
+### Plain text first
 
 Tasks are stored in simple Markdown files:
 
@@ -247,7 +247,7 @@ This keeps the workflow:
 
 No databases, no lock-in.
 
-### 3. Minimal syntax
+### Minimal syntax
 
 `todo-hub` only requires two simple conventions:
 
@@ -263,7 +263,7 @@ implement CLI @2026-03-20
 
 Everything else is optional.
 
-### 4. Works with existing repositories
+### Works with existing repositories
 
 `todo-hub` does not require special project setup.
 
@@ -278,7 +278,7 @@ in configured project folders.
 
 This makes it easy to adopt gradually across existing repositories.
 
-### 5. Fast feedback
+### Fast feedback
 
 The tool is designed for a quick daily check:
 
@@ -297,18 +297,29 @@ Unscheduled
 
 This makes it easy to see what requires attention immediately.
 
-### 6. Terminal-first workflow
+### Terminal-first workflow
 
-`todo-hub` is intentionally simple and optimized for terminal use:
+`todo-hub` is designed for a simple, distraction-free terminal workflow.
+
+Instead of interactive dashboards or complex interfaces, it produces clean,
+linear output that can be scanned quickly in a terminal window.
+
+The focus is on clarity and speed:
 
 - fast startup
 - minimal dependencies
-- readable CLI output
-- colorized task urgency
+- readable, plain-text output
+- color used only to highlight urgency
 
-It fits naturally into a developer's daily workflow.
+The goal is to make it easy to run:
 
-### 7. Small and maintainable
+```
+todo-hub
+```
+
+and immediately see what needs attention today.
+
+### Small and maintainable
 
 The project architecture is intentionally minimal:
 
