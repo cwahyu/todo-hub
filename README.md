@@ -25,15 +25,43 @@ Perfect for developers managing many small projects.
 
 ## Installation
 
-Recommended installation using **pipx**:
+### Recommended (using pipx)
+
+`pipx` installs CLI tools in isolated environments and makes them available globally.
 
 ```bash
-pipx install .
+pipx install todo-hub
 ```
 
-Or for development:
+Then run:
 
 ```
+todo-hub
+```
+
+If pipx is not installed:
+
+```
+python -m pip install --user pipx
+pipx ensurepath
+```
+
+### Using pip
+
+You can also install with pip, although pipx is recommended for CLI tools.
+
+```
+pip install todo-hub
+```
+
+### Development Installation
+
+For development or testing from the repository:
+
+```
+git clone https://github.com/cwahyu/todo-hub.git
+cd todo-hub
+
 pipx install -e .
 ```
 
@@ -70,7 +98,7 @@ Unscheduled:
 
 ## TODO Format
 
-todo-hub scans Markdown files named:
+`todo-hub` scans Markdown files named:
 
 ```
 TODO.md
@@ -168,7 +196,7 @@ pytest
 Test coverage:
 
 ```
-Required test coverage: 80%
+Required test coverage: 85%
 Current coverage: ~88%
 ```
 
@@ -176,7 +204,7 @@ Current coverage: ~88%
 
 Many developers maintain multiple repositories with scattered TODO lists.
 
-todo-hub provides a **single unified view of upcoming work** across all projects.
+`todo-hub` provides a **single unified view of upcoming work** across all projects.
 
 Instead of searching through repositories, you can simply run:
 
