@@ -34,3 +34,20 @@ def group_todos(todos):
     groups["unscheduled"].sort(key=lambda x: x.project)
 
     return groups
+
+
+def filter_today(groups):
+
+    today = date.today()
+
+    today_tasks = []
+    overdue_tasks = groups.get("overdue", [])
+
+    for task in groups.get("week", []):
+        if task.due == today:
+            today_tasks.append(task)
+
+    return {
+        "overdue": overdue_tasks,
+        "today": today_tasks,
+    }

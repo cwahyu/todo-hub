@@ -104,3 +104,15 @@ def display(groups):
     print_group("Later", groups["later"], Fore.GREEN)
 
     print_group("Unscheduled", groups["unscheduled"], Fore.LIGHTBLACK_EX)
+
+
+def display_today(groups):
+
+    overdue = groups.get("overdue", [])
+    today = groups.get("today", [])
+
+    if overdue:
+        print_group("Overdue", overdue, Fore.RED)
+
+    if today:
+        print_group("Today", today, Fore.YELLOW)

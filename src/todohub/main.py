@@ -10,8 +10,8 @@ from platformdirs import user_config_dir
 from .config import load_config
 from .scanner import find_todo_file
 from .parser import parse_todo_file
-from .scheduler import group_todos
-from .presenter import display
+from .scheduler import group_todos, filter_today
+from .presenter import display, display_today
 
 
 init(autoreset=True)
@@ -71,6 +71,32 @@ def run():
     display(groups)
 
 
+def collect_todos(projects):
+
+    todos = []
+
+    for project in projects:
+        name = project.get("name")
+        path_str = project.get("path")
+
+        if not name or not path_str:
+            continue
+
+        path = Path(path_str).expanduser()
+
+        if not path.exists():
+            print(f"Project path not found: {path}")
+            continue
+
+        todo_files = find_todo_file(path)
+
+        for todo_file in todo_files:
+            items = parse_todo_file(todo_file, name)
+            todos.extend(items)
+
+    return todos
+
+
 def main():
 
     parser = argparse.ArgumentParser(
@@ -91,12 +117,31 @@ def main():
         help="Show the config file location",
     )
 
+    subparsers.add_parser(
+        "today",
+        help="Show overdue and today's tasks",
+    )
+
     args = parser.parse_args()
 
     if args.command == "config":
         print("\nTodoHub configuration file:")
         print(get_config_path())
         print("\n")
+        return
+
+    if args.command == "today":
+        config = load_config()
+        projects = config.get("project", [])
+
+        todos = collect_todos(projects)
+
+        groups = group_todos(todos)
+
+        today_groups = filter_today(groups)
+
+        display_today(today_groups)
+
         return
 
     run()
