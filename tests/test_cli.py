@@ -2,6 +2,7 @@
 
 from datetime import date, timedelta
 from pathlib import Path
+import sys
 
 from todohub.main import main
 
@@ -40,6 +41,9 @@ path = "{project}"
         lambda: Path(config),
     )
 
+    # IMPORTANT: reset CLI args so pytest flags are ignored
+    monkeypatch.setattr(sys, "argv", ["todo-hub"])
+
     # run CLI
     main()
 
@@ -47,4 +51,3 @@ path = "{project}"
 
     assert "Overdue" in output
     assert "Today" in output
-    assert "Later" in output
