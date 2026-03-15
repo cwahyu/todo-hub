@@ -1,3 +1,5 @@
+# src/todohub/main.py
+
 import argparse
 from pathlib import Path
 from importlib.metadata import version, PackageNotFoundError

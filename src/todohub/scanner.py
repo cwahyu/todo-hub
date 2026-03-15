@@ -1,3 +1,5 @@
+# src/todohub/scanner.py
+
 from pathlib import Path
 
 

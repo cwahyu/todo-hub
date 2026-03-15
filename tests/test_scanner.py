@@ -1,3 +1,5 @@
+# tests/test_scanner.py
+
 from todohub.scanner import find_todo_file
 
 

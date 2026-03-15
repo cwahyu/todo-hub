@@ -1,3 +1,5 @@
+# src/todohub/config.py
+
 from pathlib import Path
 import shutil
 import tomllib
