@@ -51,3 +51,17 @@ def filter_today(groups):
         "overdue": overdue_tasks,
         "today": today_tasks,
     }
+
+
+def filter_week(groups):
+
+    today = date.today()
+    week_limit = today + timedelta(days=7)
+
+    week_tasks = []
+
+    for task in groups.get("week", []):
+        if today <= task.due <= week_limit:
+            week_tasks.append(task)
+
+    return week_tasks

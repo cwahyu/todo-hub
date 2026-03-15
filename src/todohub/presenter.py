@@ -2,6 +2,7 @@
 
 from colorama import Fore, Style
 from datetime import date, timedelta
+from collections import defaultdict
 
 
 PROJECT_COLORS = [
@@ -39,6 +40,11 @@ def days_label(due):
         return Fore.YELLOW + label + Style.RESET_ALL
 
     return Fore.GREEN + label + Style.RESET_ALL
+
+
+def project_label(name):
+
+    return Fore.CYAN + Style.BRIGHT + f"#{name}" + Style.RESET_ALL
 
 
 def print_task(t):
@@ -116,3 +122,31 @@ def display_today(groups):
 
     if today:
         print_group("Today", today, Fore.YELLOW)
+
+
+def display_week(tasks):
+
+    today = date.today()
+
+    grouped = defaultdict(list)
+
+    for task in tasks:
+        grouped[task.due].append(task)
+
+    for due_date in sorted(grouped):
+        if due_date == today:
+            title = "Today"
+        elif due_date == today + timedelta(days=1):
+            title = "Tomorrow"
+        else:
+            title = due_date.strftime("%b %d")
+
+        print(title)
+
+        for t in grouped[due_date]:
+            label = days_label(t.due)
+            project = project_label(t.project)
+
+            print(f"- [ ] {t.text} {label} {project}")
+
+        print()

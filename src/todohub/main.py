@@ -10,8 +10,8 @@ from platformdirs import user_config_dir
 from .config import load_config
 from .scanner import find_todo_file
 from .parser import parse_todo_file
-from .scheduler import group_todos, filter_today
-from .presenter import display, display_today
+from .scheduler import group_todos, filter_today, filter_week
+from .presenter import display, display_today, display_week
 
 
 init(autoreset=True)
@@ -122,6 +122,11 @@ def main():
         help="Show overdue and today's tasks",
     )
 
+    subparsers.add_parser(
+        "week",
+        help="Show tasks for the next 7 days",
+    )
+
     args = parser.parse_args()
 
     if args.command == "config":
@@ -141,6 +146,21 @@ def main():
         today_groups = filter_today(groups)
 
         display_today(today_groups)
+
+        return
+
+    if args.command == "week":
+        config = load_config()
+
+        projects = config.get("project", [])
+
+        todos = collect_todos(projects)
+
+        groups = group_todos(todos)
+
+        week_tasks = filter_week(groups)
+
+        display_week(week_tasks)
 
         return
 
