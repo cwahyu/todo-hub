@@ -21,7 +21,6 @@ Perfect for developers managing many small projects.
 - Deterministic color for each project
 - Simple configuration via `config.toml`
 - Fast and dependency-light
-- High test coverage (~88%)
 
 ## Installation
 
@@ -189,13 +188,6 @@ Run tests:
 
 ```
 pytest
-```
-
-Test coverage:
-
-```
-Required test coverage: 85%
-Current coverage: ~88%
 ```
 
 ## Why todo-hub?
