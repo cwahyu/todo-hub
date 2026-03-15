@@ -1,6 +1,6 @@
-# TodoHub Configuration
+# todo-hub configuration
 # ---------------------
-# Add projects you want TodoHub to scan.
+# Add projects you want todo-hub to scan.
 # Each project requires:
 # - name : display name
 # - path : directory containing your tasks
