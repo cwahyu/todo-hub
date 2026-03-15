@@ -1,33 +1,58 @@
 [tool.poetry]
 name = "todo-hub"
 version = "0.1.0"
-description = "Aggregate TODO deadlines across projects"
+description = "Aggregate TODO deadlines across multiple projects into a single agenda-style CLI view."
 authors = ["Catur Wahyu"]
 license = "MIT"
+readme = "README.md"
 
 packages = [
     { include = "todohub", from = "src" }
 ]
 
+keywords = [
+    "todo",
+    "task",
+    "cli",
+    "productivity",
+    "developer-tools"
+]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Utilities",
+]
+
+[tool.poetry.urls]
+Homepage = "https://github.com/cwahyu/todo-hub"
+Repository = "https://github.com/cwahyu/todo-hub"
+Issues = "https://github.com/cwahyu/todo-hub/issues"
+
 [tool.poetry.dependencies]
 python = "^3.12"
 colorama = "^0.4"
-platformdirs = "^4.9.4"
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-addopts = "--cov=todohub --cov-report=term-missing --cov-fail-under=80 -q"
+platformdirs = "^4.9"
 
 [tool.poetry.scripts]
 todo-hub = "todohub.main:main"
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=todohub --cov-report=term-missing --cov-fail-under=85 -q"
 
 [dependency-groups]
 dev = [
     "pytest>=9.0",
-    "pre-commit (>=4.5.1,<5.0.0)",
-    "pytest-cov (>=7.0.0,<8.0.0)"
+    "pytest-cov>=7.0",
+    "pre-commit>=4.5.1,<5.0.0",
 ]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
