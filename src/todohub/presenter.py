@@ -150,3 +150,13 @@ def display_week(tasks):
             print(f"- [ ] {t.text} {label} {project}")
 
         print()
+
+
+def display_projects(summary):
+
+    if not summary:
+        print("No tasks found.")
+        return
+
+    for project, count in sorted(summary.items(), key=lambda x: -x[1]):
+        print(f"{project:<12} {count} tasks")

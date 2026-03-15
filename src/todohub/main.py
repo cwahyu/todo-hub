@@ -10,8 +10,8 @@ from platformdirs import user_config_dir
 from .config import load_config
 from .scanner import find_todo_file
 from .parser import parse_todo_file
-from .scheduler import group_todos, filter_today, filter_week
-from .presenter import display, display_today, display_week
+from .scheduler import group_todos, filter_today, filter_week, project_summary
+from .presenter import display, display_today, display_week, display_projects
 
 
 init(autoreset=True)
@@ -127,10 +127,15 @@ def main():
         help="Show tasks for the next 7 days",
     )
 
+    subparsers.add_parser(
+        "projects",
+        help="Show task count per project",
+    )
+
     args = parser.parse_args()
 
     if args.command == "config":
-        print("\nTodoHub configuration file:")
+        print("\ntodo-hub configuration file:")
         print(get_config_path())
         print("\n")
         return
@@ -161,6 +166,19 @@ def main():
         week_tasks = filter_week(groups)
 
         display_week(week_tasks)
+
+        return
+
+    if args.command == "projects":
+        config = load_config()
+
+        projects = config.get("project", [])
+
+        todos = collect_todos(projects)
+
+        summary = project_summary(todos)
+
+        display_projects(summary)
 
         return
 

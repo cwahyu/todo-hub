@@ -1,6 +1,7 @@
 # src/todohub/scheduler.py
 
 from datetime import date, timedelta
+from collections import Counter
 
 
 def group_todos(todos):
@@ -65,3 +66,13 @@ def filter_week(groups):
             week_tasks.append(task)
 
     return week_tasks
+
+
+def project_summary(todos):
+
+    counter = Counter()
+
+    for t in todos:
+        counter[t.project] += 1
+
+    return counter
