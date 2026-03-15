@@ -3,6 +3,7 @@ from pathlib import Path
 from importlib.metadata import version, PackageNotFoundError
 
 from colorama import init
+from platformdirs import user_config_dir
 
 from .config import load_config
 from .scanner import find_todo_file
@@ -14,12 +15,19 @@ from .presenter import display
 init(autoreset=True)
 
 
+APP_NAME = "todohub"
+
+
 def get_version():
-    """Return installed package version."""
     try:
         return version("todo-hub")
     except PackageNotFoundError:
         return "unknown"
+
+
+def get_config_path():
+    config_dir = Path(user_config_dir(APP_NAME))
+    return config_dir / "config.toml"
 
 
 def run():
@@ -53,11 +61,7 @@ def run():
         todo_files = find_todo_file(path)
 
         for todo_file in todo_files:
-            items = parse_todo_file(
-                todo_file,
-                name,
-            )
-
+            items = parse_todo_file(todo_file, name)
             todos.extend(items)
 
     groups = group_todos(todos)
@@ -78,7 +82,20 @@ def main():
         version=f"%(prog)s {get_version()}",
     )
 
-    parser.parse_args()
+    subparsers = parser.add_subparsers(dest="command", required=False)
+
+    subparsers.add_parser(
+        "config",
+        help="Show the config file location",
+    )
+
+    args = parser.parse_args()
+
+    if args.command == "config":
+        print("\nTodoHub configuration file:")
+        print(get_config_path())
+        print("\n")
+        return
 
     run()
 
