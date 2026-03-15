@@ -10,8 +10,20 @@ from platformdirs import user_config_dir
 from .config import load_config
 from .scanner import find_todo_file
 from .parser import parse_todo_file
-from .scheduler import group_todos, filter_today, filter_week, project_summary
-from .presenter import display, display_today, display_week, display_projects
+from .scheduler import (
+    group_todos,
+    filter_today,
+    filter_week,
+    project_summary,
+    doctor_check,
+)
+from .presenter import (
+    display,
+    display_today,
+    display_week,
+    display_projects,
+    display_doctor,
+)
 
 
 init(autoreset=True)
@@ -132,6 +144,11 @@ def main():
         help="Show task count per project",
     )
 
+    subparsers.add_parser(
+        "doctor",
+        help="Check configuration and project health",
+    )
+
     args = parser.parse_args()
 
     if args.command == "config":
@@ -179,6 +196,19 @@ def main():
         summary = project_summary(todos)
 
         display_projects(summary)
+
+        return
+
+    if args.command == "doctor":
+        config = load_config()
+
+        projects = config.get("project", [])
+
+        config_path = get_config_path()
+
+        results = doctor_check(projects, find_todo_file)
+
+        display_doctor(config_path, projects, results)
 
         return
 

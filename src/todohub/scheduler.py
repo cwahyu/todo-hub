@@ -2,6 +2,7 @@
 
 from datetime import date, timedelta
 from collections import Counter
+from pathlib import Path
 
 
 def group_todos(todos):
@@ -76,3 +77,33 @@ def project_summary(todos):
         counter[t.project] += 1
 
     return counter
+
+
+def doctor_check(projects, find_todo_file):
+
+    results = {
+        "projects": [],
+        "todos": [],
+    }
+
+    for project in projects:
+        name = project.get("name")
+        path_str = project.get("path")
+
+        path = Path(path_str).expanduser()
+
+        if not path.exists():
+            results["projects"].append((name, False))
+            results["todos"].append((name, "invalid"))
+            continue
+
+        results["projects"].append((name, True))
+
+        todo_files = find_todo_file(path)
+
+        if todo_files:
+            results["todos"].append((name, "ok"))
+        else:
+            results["todos"].append((name, "missing"))
+
+    return results

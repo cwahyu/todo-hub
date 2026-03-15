@@ -160,3 +160,36 @@ def display_projects(summary):
 
     for project, count in sorted(summary.items(), key=lambda x: -x[1]):
         print(f"{project:<12} {count} tasks")
+
+
+def doctor_status(symbol, message):
+    print(f"{symbol} {message}")
+
+
+def display_doctor(config_path, projects, results):
+
+    print("todo-hub doctor\n")
+
+    print("Config file")
+    doctor_status("✓", config_path)
+    print()
+
+    print("Projects")
+
+    for name, path_ok in results["projects"]:
+        if path_ok:
+            doctor_status("✓", name)
+        else:
+            doctor_status("✗", f"{name} (path not found)")
+
+    print()
+
+    print("TODO files")
+
+    for name, status in results["todos"]:
+        if status == "ok":
+            doctor_status("✓", name)
+        elif status == "missing":
+            doctor_status("⚠", f"{name} (no TODO.md found)")
+        else:
+            doctor_status("✗", f"{name} (invalid path)")
