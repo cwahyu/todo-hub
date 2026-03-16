@@ -1,8 +1,16 @@
 # src/todohub/presenter.py
 
+import re
+
+
 from colorama import Fore, Style
 from datetime import date, timedelta
 from collections import defaultdict
+import textwrap
+import shutil
+
+
+ANSI_PATTERN = re.compile(r"\x1b\[[0-9;]*m")
 
 
 PROJECT_COLORS = [
@@ -21,6 +29,18 @@ PRIORITY_COLORS = {
     "medium": Fore.YELLOW,
     "low": Fore.BLUE,
 }
+
+
+PRIORITY_ORDER = {
+    "high": 0,
+    "medium": 1,
+    "low": 2,
+    None: 3,
+}
+
+
+def visible_len(text: str) -> int:
+    return len(ANSI_PATTERN.sub("", text))
 
 
 def project_color(project: str):
@@ -68,19 +88,46 @@ def print_task(t):
     project = color_project(t.project)
     priority = color_priority(getattr(t, "priority", None))
 
+    prefix = "  - [ ] "
+    indent = " " * len(prefix)
+
+    metadata = []
+
     if t.due:
-        label = days_label(t.due)
+        metadata.append(days_label(t.due))
 
-        if priority:
-            print(f"  - [ ] {t.text} {label} {priority} {project}")
-        else:
-            print(f"  - [ ] {t.text} {label} {project}")
+    if priority:
+        metadata.append(priority)
 
-    else:
-        if priority:
-            print(f"  - [ ] {t.text} {priority} {project}")
-        else:
-            print(f"  - [ ] {t.text} {project}")
+    metadata.append(project)
+
+    meta_str = " ".join(metadata)
+
+    width = max(60, shutil.get_terminal_size().columns)
+
+    candidate = f"{prefix}{t.text} {meta_str}"
+
+    # check visible length (ignore ANSI colors)
+    if visible_len(candidate) <= width:
+        print(candidate)
+        return
+
+    text_width = width - len(prefix)
+
+    wrapped = textwrap.wrap(t.text, width=text_width)
+
+    if not wrapped:
+        wrapped = [""]
+
+    if visible_len(wrapped[-1] + " " + meta_str) > text_width:
+        wrapped = textwrap.wrap(t.text, width=text_width - visible_len(meta_str) - 1)
+
+    print(f"{prefix}{wrapped[0]}")
+
+    for line in wrapped[1:-1]:
+        print(f"{indent}{line}")
+
+    print(f"{indent}{wrapped[-1]} {meta_str}")
 
 
 def print_group(title, items, color):
@@ -158,7 +205,11 @@ def display_week(tasks):
     for task in tasks:
         grouped[task.due].append(task)
 
-    for due_date in sorted(grouped):
+    for due_date in grouped:
+        grouped[due_date].sort(
+            key=lambda t: (PRIORITY_ORDER.get(t.priority, 3), t.project)
+        )
+
         if due_date == today:
             title = "Today"
         elif due_date == today + timedelta(days=1):
@@ -169,10 +220,7 @@ def display_week(tasks):
         print(title)
 
         for t in grouped[due_date]:
-            label = days_label(t.due)
-            project = project_label(t.project)
-
-            print(f"- [ ] {t.text} {label} {project}")
+            print_task(t)
 
         print()
 
