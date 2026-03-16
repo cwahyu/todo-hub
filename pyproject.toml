@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "todo-hub"
-version = "0.2.0"
+version = "0.3.0"
 description = "Aggregate TODO deadlines across multiple projects into a single agenda-style CLI view."
 authors = ["Catur Wahyu"]
 license = "MIT"
@@ -14,25 +14,32 @@ keywords = [
     "todo",
     "task",
     "cli",
+    "agenda",
     "productivity",
-    "developer-tools"
+    "developer-tools",
+    "terminal",
+    "task-manager",
 ]
 
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Environment :: Console",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Utilities",
+    "Topic :: Terminals",
+    "Topic :: Office/Business :: Scheduling",
 ]
 
 [tool.poetry.urls]
 Homepage = "https://github.com/cwahyu/todo-hub"
 Repository = "https://github.com/cwahyu/todo-hub"
 Issues = "https://github.com/cwahyu/todo-hub/issues"
+Documentation = "https://github.com/cwahyu/todo-hub#readme"
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -51,6 +58,7 @@ dev = [
     "pytest>=9.0",
     "pytest-cov>=7.0",
     "pre-commit>=4.5.1,<5.0.0",
+    "twine>=6.2"
 ]
 
 [build-system]
