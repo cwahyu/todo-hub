@@ -2,44 +2,37 @@
 
 `todo-hub` is a lightweight CLI tool that aggregates TODO tasks across multiple projects and presents them as a deadline-focused agenda.
 
-It scans `TODO.md` files from different repositories and shows tasks grouped by urgency with a clean, colorized terminal view.
+It scans `TODO.md` files from different repositories and shows tasks grouped by urgency in a clean, colorized terminal view.
 
-Perfect for developers managing many small projects.
+Ideal for developers managing many small projects.
 
 ## Features
 
 - Scan TODO files across multiple projects
-- Parse tasks written as Markdown checkboxes
+- Parse Markdown checkbox tasks
 - Detect deadlines using `@YYYY-MM-DD`
-- Group tasks by urgency:
-  - **Overdue**
-  - **This week**
-  - **Later**
-  - **Unscheduled**
+- Optional priority tags: `!high`, `!medium`, `!low`
+- Support nested tasks (parent tasks are ignored)
 - Agenda-style weekly view
-- Colorized terminal output
-- Deterministic color for each project
-- Simple configuration via `config.toml`
+- Deterministic color per project
+- Simple `config.toml` configuration
 - Fast and dependency-light
 
 ## Installation
 
-### Recommended (using pipx)
+### Recommended (pipx)
 
-`pipx` installs CLI tools in isolated environments and makes them available globally.
-
+`pipx` installs CLI tools in isolated environments.
 ```bash
 pipx install todo-hub
 ```
 
-Then run:
-
+Run:
 ```
 todo-hub
 ```
 
-If pipx is not installed:
-
+If `pipx` is not installed:
 ```
 python -m pip install --user pipx
 pipx ensurepath
@@ -47,33 +40,26 @@ pipx ensurepath
 
 ### Using pip
 
-You can also install with pip, although pipx is recommended for CLI tools.
-
 ```
 pip install todo-hub
 ```
 
-### Development Installation
-
-For development or testing from the repository:
+### Development install
 
 ```
 git clone https://github.com/cwahyu/todo-hub.git
 cd todo-hub
-
 pipx install -e .
 ```
 
 ## Usage
 
 Run:
-
 ```
 todo-hub
 ```
 
 Example output:
-
 ```
 Overdue:
   - [ ] fix parser @2026-03-10 (-4d) #mudita
@@ -83,8 +69,6 @@ This week:
   - [ ] finish CLI @2026-03-14 (0d) #todo-hub
   Tomorrow
   - [ ] improve parser @2026-03-15 (1d) #mudita
-  Mar 16
-  - [ ] refactor scanner @2026-03-16 (2d) #todo-hub
 
 Later:
   - [ ] redesign module @2026-03-25 (11d) #todo-hub
@@ -93,47 +77,62 @@ Unscheduled:
   - [ ] research API #blog
 ```
 
+## Additional commands:
+
+```
+todo-hub today
+todo-hub week
+todo-hub projects
+todo-hub doctor
+```
+
 ## TODO Format
 
 `todo-hub` scans Markdown files named:
-
 ```
 TODO.md
 todo.md
 ```
 
-Tasks must follow this format:
-
+Tasks use Markdown checkboxes:
 ```
-- [ ] implement feature @2026-04-01
+- [ ] task description
 ```
 
-Deadline syntax:
-
+Optional metadata:
 ```
-@YYYY-MM-DD
+@YYYY-MM-DD     deadline
+!high           priority
+!medium
+!low
 ```
 
 Examples:
-
 ```
-- [ ] finish CLI @2026-03-20
-- [ ] refactor parser @2026-03-21
-- [ ] improve documentation
+- [ ] ￼implement CLI @2026-03-20
+- [ ] ￼fix production bug !high @2026-03-16
+- [ ] ￼improve documentation
 ```
 
-Completed tasks are ignored:
+Nested tasks are supported:
+```
+- [ ] version 0.3.0
+  - [ ] support indented tasks
+  - [ ] priority tags !medium
+```
 
+Parent tasks without deadlines are ignored.
+
+Completed tasks are skipped:
 ```
 - [x] finished task
 ```
 
 ## Configuration
 
-Projects are defined in config.toml.
+Projects are defined in `config.toml`.
 
 Example:
-
 ```
 [[project]]
 name = "mudita"
@@ -144,65 +143,7 @@ name = "todo-hub"
 path = "~/projects/todo-hub"
 ```
 
-Each project path will be scanned recursively for TODO.md.
-
-## Project Structure
-
-```
-todo-hub/
-├── src/
-│   └── todohub/
-│       ├── main.py
-│       ├── config.py
-│       ├── scanner.py
-│       ├── parser.py
-│       ├── scheduler.py
-│       ├── presenter.py
-│       └── models.py
-├── tests/
-├── pyproject.toml
-└── README.md
-```
-
-Architecture pipeline:
-
-```
-config → scan → parse → schedule → present
-```
-
-## Development
-
-Install dependencies:
-
-```
-poetry install
-```
-
-Run the CLI:
-
-```
-poetry run todo-hub
-```
-
-Run tests:
-
-```
-pytest
-```
-
-## Why todo-hub?
-
-Many developers maintain multiple repositories with scattered TODO lists.
-
-`todo-hub` provides a **single unified view of upcoming work** across all projects.
-
-Instead of searching through repositories, you can simply run:
-
-```
-todo-hub
-```
-
-and immediately see what needs attention.
+Each project directory is scanned recursively for TODO files.
 
 ## Philosophy
 
@@ -210,115 +151,70 @@ and immediately see what needs attention.
 
 ### Deadlines over task lists
 
-Most TODO tools focus on managing tasks inside a single project.
+Most task tools focus on managing tasks inside a single project.
 
-`todo-hub` focuses on **deadlines across projects**.
+`todo-hub` focuses on deadlines across projects.
 
 The goal is to answer one question quickly:
 
-> *What needs my attention today?*
-
-Instead of browsing multiple repositories, `todo-hub` aggregates tasks into a single agenda-style view.
+>What needs my attention today?
 
 ### Plain text first
 
-Tasks are stored in simple Markdown files:
-
+Tasks live in simple Markdown files:
 ```
 TODO.md
 ```
 
 This keeps the workflow:
-
 - transparent
 - version-controlled
 - editor-friendly
-- portable across tools
+- portable
 
 No databases, no lock-in.
 
-### Minimal syntax
-
-`todo-hub` only requires two simple conventions:
-
-```
-task description @YYYY-MM-DD
-```
-
-Example:
-
-```
-implement CLI @2026-03-20
-```
-
-Everything else is optional.
-
-### Works with existing repositories
-
-`todo-hub` does not require special project setup.
-
-It simply scans for:
-
-```
-TODO.md
-todo.md
-```
-
-in configured project folders.
-
-This makes it easy to adopt gradually across existing repositories.
-
-### Fast feedback
-
-The tool is designed for a quick daily check:
-
-```
-todo-hub
-```
-
-Output is grouped by urgency:
-
-```
-Overdue
-This week
-Later
-Unscheduled
-```
-
-This makes it easy to see what requires attention immediately.
-
 ### Terminal-first workflow
 
-`todo-hub` is designed for a simple, distraction-free terminal workflow.
-
-Instead of interactive dashboards or complex interfaces, it produces clean,
-linear output that can be scanned quickly in a terminal window.
-
-The focus is on clarity and speed:
-
+`todo-hub` is intentionally simple and optimized for terminal use:
 - fast startup
 - minimal dependencies
-- readable, plain-text output
+- readable CLI output
 - color used only to highlight urgency
 
-The goal is to make it easy to run:
-
+Run:
 ```
 todo-hub
 ```
 
-and immediately see what needs attention today.
+and immediately see what needs attention.
 
 ### Small and maintainable
 
-The project architecture is intentionally minimal:
-
+The architecture is intentionally minimal:
 ```
 config → scan → parse → schedule → present
 ```
 
-Each module has a single responsibility, making the codebase easy to understand and extend.
+Each module has a single responsibility.
 
-## **License**
+## Development
+
+Install dependencies:
+```
+poetry install
+```
+
+Run the CLI:
+```
+poetry run todo-hub
+```
+
+Run tests:
+```
+pytest
+```
+
+## License
 
 MIT License
