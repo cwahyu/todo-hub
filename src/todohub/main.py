@@ -70,7 +70,8 @@ def run():
             print(f"Project path not found: {path}")
             continue
 
-        print(f"Scanning {name}...")
+        # optional debug
+        # print(f"Scanning {name}...")
 
         todo_files = find_todo_file(path)
 
