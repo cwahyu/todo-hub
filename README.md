@@ -109,9 +109,9 @@ Optional metadata:
 
 Examples:
 ```
-- [ ] ￼implement CLI @2026-03-20
-- [ ] ￼fix production bug !high @2026-03-16
-- [ ] ￼improve documentation
+- [ ] implement CLI @2026-03-20
+- [ ] fix production bug !high @2026-03-16
+- [ ] improve documentation
 ```
 
 Nested tasks are supported:
