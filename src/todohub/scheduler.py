@@ -5,6 +5,22 @@ from collections import Counter
 from pathlib import Path
 
 
+PRIORITY_WEIGHT = {
+    "high": 0,
+    "medium": 1,
+    "low": 2,
+    None: 3,
+}
+
+
+def sort_key(task):
+    return (
+        PRIORITY_WEIGHT.get(getattr(task, "priority", None)),
+        task.due or date.max,
+        task.project,
+    )
+
+
 def group_todos(todos):
     today = date.today()
     soon = today + timedelta(days=7)
@@ -30,10 +46,10 @@ def group_todos(todos):
             groups["later"].append(t)
 
     # sorting
-    groups["overdue"].sort(key=lambda x: (x.due, x.project), reverse=True)
-    groups["week"].sort(key=lambda x: (x.due, x.project))
-    groups["later"].sort(key=lambda x: (x.due, x.project))
-    groups["unscheduled"].sort(key=lambda x: x.project)
+    groups["overdue"].sort(key=sort_key, reverse=True)
+    groups["week"].sort(key=sort_key)
+    groups["later"].sort(key=sort_key)
+    groups["unscheduled"].sort(key=sort_key)
 
     return groups
 

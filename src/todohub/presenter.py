@@ -16,6 +16,13 @@ PROJECT_COLORS = [
 ]
 
 
+PRIORITY_COLORS = {
+    "high": Fore.RED,
+    "medium": Fore.YELLOW,
+    "low": Fore.BLUE,
+}
+
+
 def project_color(project: str):
     idx = abs(hash(project)) % len(PROJECT_COLORS)
     return PROJECT_COLORS[idx]
@@ -24,6 +31,15 @@ def project_color(project: str):
 def color_project(project: str):
     color = project_color(project)
     return f"{color}{Style.BRIGHT}#{project}{Style.RESET_ALL}"
+
+
+def color_priority(priority):
+
+    if not priority:
+        return ""
+
+    color = PRIORITY_COLORS.get(priority, "")
+    return f"{color}!{priority}{Style.RESET_ALL}"
 
 
 def days_label(due):
@@ -50,12 +66,21 @@ def project_label(name):
 def print_task(t):
 
     project = color_project(t.project)
+    priority = color_priority(getattr(t, "priority", None))
 
     if t.due:
         label = days_label(t.due)
-        print(f"  - [ ] {t.text} {label} {project}")
+
+        if priority:
+            print(f"  - [ ] {t.text} {label} {priority} {project}")
+        else:
+            print(f"  - [ ] {t.text} {label} {project}")
+
     else:
-        print(f"  - [ ] {t.text} {project}")
+        if priority:
+            print(f"  - [ ] {t.text} {priority} {project}")
+        else:
+            print(f"  - [ ] {t.text} {project}")
 
 
 def print_group(title, items, color):
