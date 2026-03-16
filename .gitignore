@@ -2,6 +2,7 @@
 *.egg-info/
 *.log
 *.pyc
+.autoheader_cache
 .coverage
 .env
 .idea/
