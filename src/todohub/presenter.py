@@ -1,13 +1,12 @@
 # src/todohub/presenter.py
 
 import re
-
+import textwrap
+import shutil
 
 from colorama import Fore, Style
 from datetime import date, timedelta
 from collections import defaultdict
-import textwrap
-import shutil
 
 
 ANSI_PATTERN = re.compile(r"\x1b\[[0-9;]*m")
@@ -43,6 +42,10 @@ def visible_len(text: str) -> int:
     return len(ANSI_PATTERN.sub("", text))
 
 
+def terminal_width():
+    return max(60, shutil.get_terminal_size(fallback=(100, 20)).columns)
+
+
 def project_color(project: str):
     idx = abs(hash(project)) % len(PROJECT_COLORS)
     return PROJECT_COLORS[idx]
@@ -58,7 +61,10 @@ def color_priority(priority):
     if not priority:
         return ""
 
-    color = PRIORITY_COLORS.get(priority, "")
+    color = PRIORITY_COLORS.get(priority)
+    if not color:
+        return ""
+
     return f"{color}!{priority}{Style.RESET_ALL}"
 
 
@@ -76,11 +82,6 @@ def days_label(due):
         return Fore.YELLOW + label + Style.RESET_ALL
 
     return Fore.GREEN + label + Style.RESET_ALL
-
-
-def project_label(name):
-
-    return Fore.CYAN + Style.BRIGHT + f"#{name}" + Style.RESET_ALL
 
 
 def print_task(t):
@@ -103,11 +104,10 @@ def print_task(t):
 
     meta_str = " ".join(metadata)
 
-    width = max(60, shutil.get_terminal_size().columns)
+    width = terminal_width()
 
     candidate = f"{prefix}{t.text} {meta_str}"
 
-    # check visible length (ignore ANSI colors)
     if visible_len(candidate) <= width:
         print(candidate)
         return
@@ -119,8 +119,11 @@ def print_task(t):
     if not wrapped:
         wrapped = [""]
 
-    if visible_len(wrapped[-1] + " " + meta_str) > text_width:
-        wrapped = textwrap.wrap(t.text, width=text_width - visible_len(meta_str) - 1)
+    meta_len = visible_len(meta_str) + 1
+    safe_width = max(10, text_width - meta_len)
+
+    if visible_len(wrapped[-1]) + meta_len > text_width:
+        wrapped = textwrap.wrap(t.text, width=safe_width)
 
     print(f"{prefix}{wrapped[0]}")
 
@@ -159,7 +162,7 @@ def print_week_agenda(items):
     for t in items:
         if t.due != current_day:
             if not first_group:
-                print()  # spacing between date groups
+                print()
 
             current_day = t.due
             first_group = False
