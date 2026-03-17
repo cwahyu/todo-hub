@@ -15,8 +15,8 @@ PRIORITY_WEIGHT = {
 
 def sort_key(task):
     return (
-        PRIORITY_WEIGHT.get(getattr(task, "priority", None)),
         task.due or date.max,
+        PRIORITY_WEIGHT.get(getattr(task, "priority", None), 3),
         task.project,
     )
 
@@ -46,7 +46,7 @@ def group_todos(todos):
             groups["later"].append(t)
 
     # sorting
-    groups["overdue"].sort(key=sort_key, reverse=True)
+    groups["overdue"].sort(key=sort_key)
     groups["week"].sort(key=sort_key)
     groups["later"].sort(key=sort_key)
     groups["unscheduled"].sort(key=sort_key)
