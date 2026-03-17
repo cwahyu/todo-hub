@@ -1,3 +1,12 @@
+## v0.3.1
+
+Bug fixes
+
+- fix wrapping of long tasks in terminal output
+- correct ANSI color width calculation
+- ensure metadata stays on the final line
+- remove "Scanning ..." messages from CLI output
+
 ## v0.3.0
 
 Features:
