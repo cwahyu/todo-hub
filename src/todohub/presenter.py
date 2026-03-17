@@ -154,10 +154,15 @@ def print_week_agenda(items):
     print(Fore.YELLOW + Style.BRIGHT + "This week:" + Style.RESET_ALL)
 
     current_day = None
+    first_group = True
 
     for t in items:
         if t.due != current_day:
+            if not first_group:
+                print()  # spacing between date groups
+
             current_day = t.due
+            first_group = False
 
             if current_day == today:
                 label = "Today"
@@ -198,21 +203,21 @@ def display_today(groups):
 
 def display_week(tasks):
 
+    if not tasks:
+        return
+
     today = date.today()
+    tomorrow = today + timedelta(days=1)
 
     grouped = defaultdict(list)
 
     for task in tasks:
         grouped[task.due].append(task)
 
-    for due_date in grouped:
-        grouped[due_date].sort(
-            key=lambda t: (PRIORITY_ORDER.get(t.priority, 3), t.project)
-        )
-
+    for due_date in sorted(grouped):
         if due_date == today:
             title = "Today"
-        elif due_date == today + timedelta(days=1):
+        elif due_date == tomorrow:
             title = "Tomorrow"
         else:
             title = due_date.strftime("%b %d")
