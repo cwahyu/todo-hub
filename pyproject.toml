@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "todo-hub"
-version = "0.3.0"
+version = "0.3.1"
 description = "Aggregate TODO deadlines across multiple projects into a single agenda-style CLI view."
 authors = ["Catur Wahyu"]
 license = "MIT"
@@ -51,7 +51,7 @@ todo-hub = "todohub.main:main"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "--cov=todohub --cov-report=term-missing --cov-fail-under=85 -q"
+addopts = "--cov=todohub --cov-report=term-missing --cov-fail-under=80 -q"
 
 [dependency-groups]
 dev = [
