@@ -15,12 +15,14 @@ ANSI_PATTERN = re.compile(r"\x1b\[[0-9;]*m")
 
 PROJECT_COLORS = [
     Fore.CYAN,
-    Fore.MAGENTA,
     Fore.BLUE,
     Fore.GREEN,
+    Fore.MAGENTA,
     Fore.YELLOW,
     Fore.LIGHTBLUE_EX,
     Fore.LIGHTMAGENTA_EX,
+    Fore.LIGHTCYAN_EX,
+    Fore.LIGHTGREEN_EX,
 ]
 
 
