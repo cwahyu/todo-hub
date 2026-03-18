@@ -1,3 +1,9 @@
+## v0.3.2
+
+Bug fix
+
+- fix presenter, make project color deterministic
+
 ## v0.3.1
 
 Bug fixes
