@@ -3,6 +3,7 @@
 import re
 import textwrap
 import shutil
+import hashlib
 
 from colorama import Fore, Style
 from datetime import date, timedelta
@@ -47,7 +48,11 @@ def terminal_width():
 
 
 def project_color(project: str):
-    idx = abs(hash(project)) % len(PROJECT_COLORS)
+
+    digest = hashlib.md5(project.encode("utf-8")).hexdigest()
+
+    idx = int(digest, 16) % len(PROJECT_COLORS)
+
     return PROJECT_COLORS[idx]
 
 
