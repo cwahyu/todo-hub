@@ -1,15 +1,16 @@
-*.DS_Store
-*.egg-info/
-*.log
-*.pyc
-.autoheader_cache
-.coverage
-.env
-.idea/
-.venv/
+# Python-generated files
 __pycache__/
+*.py[oc]
 build/
-config.toml
 dist/
+wheels/
+*.egg-info
+.coverage
+
+# Virtual environments
+.venv
+
+# Local files
+.DS_Store
 local/
-venv/
+.idea/
