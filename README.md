@@ -1,8 +1,10 @@
 # todo-hub
 
-`todo-hub` is a lightweight CLI tool that aggregates TODO tasks across multiple projects and presents them as a deadline-focused agenda.
+`todo-hub` is a lightweight CLI tool that aggregates TODO tasks across multiple
+projects and presents them as a deadline-focused agenda.
 
-It scans `TODO.md` files from different repositories and shows tasks grouped by urgency in a clean, colorized terminal view.
+It scans `TODO.md` files from different repositories and shows tasks grouped by
+urgency in a clean, colorized terminal view.
 
 Ideal for developers managing many small projects.
 
@@ -23,30 +25,33 @@ Ideal for developers managing many small projects.
 ### Recommended (pipx)
 
 `pipx` installs CLI tools in isolated environments.
+
 ```bash
 pipx install todo-hub
 ```
 
 Run:
-```
+
+```bash
 todo-hub
 ```
 
 If `pipx` is not installed:
-```
+
+```bash
 python -m pip install --user pipx
 pipx ensurepath
 ```
 
 ### Using pip
 
-```
+```bash
 pip install todo-hub
 ```
 
 ### Development install
 
-```
+```bash
 git clone https://github.com/cwahyu/todo-hub.git
 cd todo-hub
 pipx install -e .
@@ -55,12 +60,14 @@ pipx install -e .
 ## Usage
 
 Run:
-```
+
+```bash
 todo-hub
 ```
 
 Example output:
-```
+
+```text
 Overdue:
   - [ ] fix parser @2026-03-10 (-4d) #mudita
 
@@ -78,9 +85,9 @@ Unscheduled:
   - [ ] research API #blog
 ```
 
-## Additional commands:
+## Additional commands
 
-```
+```bash
 todo-hub today
 todo-hub week
 todo-hub projects
@@ -90,18 +97,21 @@ todo-hub doctor
 ## TODO Format
 
 `todo-hub` scans Markdown files named:
-```
+
+```text
 TODO.md
 todo.md
 ```
 
 Tasks use Markdown checkboxes:
-```
+
+```text
 - [ ] task description
 ```
 
 Optional metadata:
-```
+
+```text
 @YYYY-MM-DD     deadline
 !high           priority
 !medium
@@ -109,14 +119,16 @@ Optional metadata:
 ```
 
 Examples:
-```
+
+```text
 - [ ] implement CLI @2026-03-20
 - [ ] fix production bug !high @2026-03-16
 - [ ] improve documentation
 ```
 
 Nested tasks are supported:
-```
+
+```text
 - [ ] version 0.3.0
   - [ ] support indented tasks
   - [ ] priority tags !medium
@@ -125,7 +137,8 @@ Nested tasks are supported:
 Parent tasks without deadlines are ignored.
 
 Completed tasks are skipped:
-```
+
+```text
 - [x] finished task
 ```
 
@@ -134,7 +147,8 @@ Completed tasks are skipped:
 Projects are defined in `config.toml`.
 
 Example:
-```
+
+```toml
 [[project]]
 name = "mudita"
 path = "~/projects/mudita"
@@ -163,11 +177,13 @@ The goal is to answer one question quickly:
 ### Plain text first
 
 Tasks live in simple Markdown files:
-```
+
+```text
 TODO.md
 ```
 
 This keeps the workflow:
+
 - transparent
 - version-controlled
 - editor-friendly
@@ -178,13 +194,15 @@ No databases, no lock-in.
 ### Terminal-first workflow
 
 `todo-hub` is intentionally simple and optimized for terminal use:
+
 - fast startup
 - minimal dependencies
 - readable CLI output
 - color used only to highlight urgency
 
 Run:
-```
+
+```bash
 todo-hub
 ```
 
@@ -193,7 +211,8 @@ and immediately see what needs attention.
 ### Small and maintainable
 
 The architecture is intentionally minimal:
-```
+
+```text
 config → scan → parse → schedule → present
 ```
 
@@ -202,17 +221,20 @@ Each module has a single responsibility.
 ## Development
 
 Install dependencies:
-```
+
+```bash
 poetry install
 ```
 
 Run the CLI:
-```
+
+```bash
 poetry run todo-hub
 ```
 
 Run tests:
-```
+
+```bash
 pytest
 ```
 
