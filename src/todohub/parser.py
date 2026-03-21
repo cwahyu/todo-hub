@@ -2,8 +2,8 @@
 
 import re
 from datetime import date
-from .models import TodoItem
 
+from .models import TodoItem
 
 DATE_PATTERN = re.compile(r"@(\d{4}-\d{2}-\d{2})")
 PRIORITY_PATTERN = re.compile(r"!(high|medium|low)", re.IGNORECASE)

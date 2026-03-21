@@ -1,7 +1,8 @@
 # tests/test_main_config.py
 
-from todohub.main import main
 import sys
+
+from todohub.main import main
 
 
 def test_config_command(monkeypatch, capsys):

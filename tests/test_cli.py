@@ -1,8 +1,8 @@
 # tests/test_cli.py
 
+import sys
 from datetime import date, timedelta
 from pathlib import Path
-import sys
 
 from todohub.main import main
 

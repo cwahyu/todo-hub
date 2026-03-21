@@ -2,7 +2,6 @@
 
 from pathlib import Path
 
-
 IGNORED = {".git", ".venv", "__pycache__", "node_modules"}
 
 

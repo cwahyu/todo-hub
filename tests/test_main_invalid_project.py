@@ -1,6 +1,7 @@
 # tests/test_main_invalid_project.py
 
 import sys
+
 from todohub.main import main
 
 

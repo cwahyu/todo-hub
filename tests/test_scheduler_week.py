@@ -2,8 +2,8 @@
 
 from datetime import date, timedelta
 
-from todohub.scheduler import filter_week
 from todohub.models import TodoItem
+from todohub.scheduler import filter_week
 
 
 def test_filter_week():

@@ -1,7 +1,7 @@
 # tests/test_doctor_todo_found.py
 
-from pathlib import Path
 import tempfile
+from pathlib import Path
 
 from todohub.scheduler import doctor_check
 

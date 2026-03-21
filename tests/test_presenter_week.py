@@ -2,8 +2,8 @@
 
 from datetime import date, timedelta
 
-from todohub.presenter import display_week
 from todohub.models import TodoItem
+from todohub.presenter import display_week
 
 
 def test_display_week(capsys):

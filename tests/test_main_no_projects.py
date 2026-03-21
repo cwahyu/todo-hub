@@ -1,6 +1,7 @@
 # tests/test_main_no_projects.py
 
 import sys
+
 from todohub.main import main
 
 

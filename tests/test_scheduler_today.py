@@ -2,8 +2,8 @@
 
 from datetime import date, timedelta
 
-from todohub.scheduler import filter_today
 from todohub.models import TodoItem
+from todohub.scheduler import filter_today
 
 
 def test_filter_today():

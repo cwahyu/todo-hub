@@ -1,7 +1,7 @@
 # tests/test_main_today.py
 
-from datetime import date
 import sys
+from datetime import date
 
 from todohub.main import main
 from todohub.models import TodoItem

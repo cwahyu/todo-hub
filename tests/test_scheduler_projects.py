@@ -1,7 +1,7 @@
 # tests/test_scheduler_projects.py
 
-from todohub.scheduler import project_summary
 from todohub.models import TodoItem
+from todohub.scheduler import project_summary
 
 
 def test_project_summary():

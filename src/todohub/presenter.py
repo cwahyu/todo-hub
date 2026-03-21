@@ -1,14 +1,13 @@
 # src/todohub/presenter.py
 
-import re
-import textwrap
-import shutil
 import hashlib
+import re
+import shutil
+import textwrap
+from collections import defaultdict
+from datetime import date, timedelta
 
 from colorama import Fore, Style
-from datetime import date, timedelta
-from collections import defaultdict
-
 
 ANSI_PATTERN = re.compile(r"\x1b\[[0-9;]*m")
 

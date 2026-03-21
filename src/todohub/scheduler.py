@@ -1,9 +1,8 @@
 # src/todohub/scheduler.py
 
-from datetime import date, timedelta
 from collections import Counter
+from datetime import date, timedelta
 from pathlib import Path
-
 
 PRIORITY_WEIGHT = {
     "high": 0,

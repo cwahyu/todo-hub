@@ -1,8 +1,9 @@
 # tests/test_presenter_priority.py
 
 from datetime import date
-from todohub.presenter import print_task
+
 from todohub.models import TodoItem
+from todohub.presenter import print_task
 
 
 def test_print_task_with_priority(capsys):

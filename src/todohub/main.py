@@ -1,30 +1,29 @@
 # src/todohub/main.py
 
 import argparse
+from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
-from importlib.metadata import version, PackageNotFoundError
 
 from colorama import init
 from platformdirs import user_config_dir
 
 from .config import load_config
-from .scanner import find_todo_file
 from .parser import parse_todo_file
-from .scheduler import (
-    group_todos,
-    filter_today,
-    filter_week,
-    project_summary,
-    doctor_check,
-)
 from .presenter import (
     display,
+    display_doctor,
+    display_projects,
     display_today,
     display_week,
-    display_projects,
-    display_doctor,
 )
-
+from .scanner import find_todo_file
+from .scheduler import (
+    doctor_check,
+    filter_today,
+    filter_week,
+    group_todos,
+    project_summary,
+)
 
 init(autoreset=True)
 

@@ -1,6 +1,7 @@
 # tests/test_config.py
 
 from pathlib import Path
+
 import tomllib
 
 CONFIG_PATH = Path(__file__).parent / "config.toml"

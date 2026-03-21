@@ -2,8 +2,8 @@
 
 from datetime import date
 
-from todohub.presenter import display_today
 from todohub.models import TodoItem
+from todohub.presenter import display_today
 
 
 def test_display_today(capsys):
