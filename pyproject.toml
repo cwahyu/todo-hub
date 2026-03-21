@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "todo-hub"
 version = "0.3.2"
-description = "Aggregate TODO deadlines across multiple projects into a single agenda-style CLI view."
+description = "Cross-repository TODO aggregator with a deadline-first agenda view."
 authors = ["Catur Wahyu"]
 license = "MIT"
 readme = "README.md"
