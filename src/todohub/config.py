@@ -1,10 +1,10 @@
 # src/todohub/config.py
 
 import shutil
+import tomllib
 from importlib import resources
 from pathlib import Path
 
-import tomllib
 from platformdirs import user_config_dir
 
 APP_NAME = "todohub"
