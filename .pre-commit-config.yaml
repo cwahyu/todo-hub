@@ -1,6 +1,14 @@
 repos:
+  - repo: local
+    hooks:
+      - id: pathcrumb
+        name: pathcrumb
+        entry: pathcrumb fix
+        language: system
+        types: [python]
+
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.6
+    rev: v0.15.7
     hooks:
       - id: ruff-check
         args: [--fix]
