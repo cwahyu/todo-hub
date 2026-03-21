@@ -5,12 +5,19 @@ build/
 dist/
 wheels/
 *.egg-info
-.coverage
 
 # Virtual environments
 .venv
 
-# Local files
+# Coverage
+.coverage
+.coverage.*
+htmlcov/
+
+# local
 .DS_Store
-local/
+.gitlater
 .idea/
+.pre-commit-personal.yaml
+local/
+scripts/
