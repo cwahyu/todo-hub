@@ -1,3 +1,5 @@
+# CHANGELOG
+
 ## v0.3.2
 
 Bug fix

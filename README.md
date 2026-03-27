@@ -223,19 +223,19 @@ Each module has a single responsibility.
 Install dependencies:
 
 ```bash
-poetry install
+uv sync --extra dev
 ```
 
 Run the CLI:
 
 ```bash
-poetry run todo-hub
+uv run todo-hub
 ```
 
 Run tests:
 
 ```bash
-pytest
+uv run pytest
 ```
 
 ## License
