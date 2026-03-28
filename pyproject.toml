@@ -1,6 +1,6 @@
 [project]
 name = "todo-hub"
-version = "0.3.2"
+version = "0.3.3"
 description = "Cross-repository TODO aggregator with a deadline-first agenda view."
 readme = "README.md"
 license = { text = "MIT" }

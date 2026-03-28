@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v0.3.3
+
+- include overdue tasks in week view
+
 ## v0.3.2
 
 Bug fix
