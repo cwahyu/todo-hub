@@ -210,19 +210,36 @@ def display_today(groups):
         print_group("Today", today, Fore.YELLOW)
 
 
-def display_week(tasks):
-
-    if not tasks:
-        return
+def display_week(data):
 
     today = date.today()
     tomorrow = today + timedelta(days=1)
 
+    # --- detect input type ---
+    if isinstance(data, dict):
+        overdue = data.get("overdue", [])
+        week_tasks = data.get("week", [])
+    else:
+        overdue = []
+        week_tasks = data
+
+    # --- Overdue ---
+    if overdue:
+        print("Overdue")
+        for t in overdue:
+            print_task(t)
+        print()
+
+    if not week_tasks:
+        return
+
+    # --- Group by date ---
     grouped = defaultdict(list)
 
-    for task in tasks:
+    for task in week_tasks:
         grouped[task.due].append(task)
 
+    # --- Week agenda ---
     for due_date in sorted(grouped):
         if due_date == today:
             title = "Today"

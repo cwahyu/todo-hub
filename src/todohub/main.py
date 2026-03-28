@@ -20,7 +20,6 @@ from .scanner import find_todo_file
 from .scheduler import (
     doctor_check,
     filter_today,
-    filter_week,
     group_todos,
     project_summary,
 )
@@ -180,9 +179,7 @@ def main():
 
         groups = group_todos(todos)
 
-        week_tasks = filter_week(groups)
-
-        display_week(week_tasks)
+        display_week(groups)
 
         return
 
